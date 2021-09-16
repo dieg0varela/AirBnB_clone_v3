@@ -3,7 +3,7 @@
 create a variable app, instance of Flask
 """
 
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, Flask
 from models import storage
 from api.v1.views import app_views
 
