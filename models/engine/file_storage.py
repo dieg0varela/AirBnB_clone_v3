@@ -78,3 +78,11 @@ class FileStorage:
             if i[lent:] == id:
                 ret = objects[i]
         return (ret)
+
+    def count(self, cls=None):
+        """Count the amount of objects of a class or all objects"""
+        ret = 0
+        objects = self.all(cls)
+        for i in objects:
+            ret += 1
+        return (ret)
