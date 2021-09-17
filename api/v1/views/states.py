@@ -49,6 +49,7 @@ def post():
         print(type(data))
         '''if "name" not in data
             abort(400, "Missing name")'''
+        return jsonify({}, 201)
     
     except:
         abort(400, "Not a JSON")
