@@ -12,7 +12,7 @@ import json
 
 @app_views.route("/states", methods=['GET'], strict_slashes = False)
 def get_them_all():
-    """Method Get PastranaRaymundo"""
+    """Retrive all object state"""
     states = storage.all(State)
     ret_list = []
     for k, v in states.items():
@@ -22,7 +22,7 @@ def get_them_all():
 
 @app_views.route("/states/<state_id>", methods=['GET'])
 def get(state_id):
-    """Method Get PastranaRaymundo"""
+    """Retrive object state from their id"""
     try:
         states = storage.get(State, state_id)
         return (jsonify(states.to_dict()))
@@ -66,11 +66,12 @@ def put(state_id):
     try:
         update = request.get_json()
         for k, v in update.items():
-            if "id" not in update or "created_at" not in update or "updated_at" not in update:
+            if ("id" not in update or
+                "created_at" not in update or 
+                "updated_at" not in update):
                 setattr(obj, k, v)
                 obj.save()
         return jsonify(obj.to_dict())
 
     except:
         abort(400, "Not a JSON")
-
