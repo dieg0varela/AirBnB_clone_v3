@@ -47,13 +47,16 @@ def post():
     """Add an instance of a state"""
     try:
         data = request.get_json()
-        print(type(data))
-        '''if "name" not in data
-            abort(400, "Missing name")'''
-        return jsonify({}, 201)
-    
+        if "name" not in data
+            abort(400, "Missing name")
+        new_state = State()
+        for k, v in data.items():
+            setattr(new_state, k, v)
+            new_state.save()
+        return jsonify(new_state.to_dict()), 201
     except:
         abort(400, "Not a JSON")
+
 
 @app_views.route("/states/<state_id>", methods=['PUT'])
 def put(state_id):
@@ -68,6 +71,6 @@ def put(state_id):
                 obj.save()
         return jsonify(obj.to_dict())
 
-    except ValueError as err:
+    except:
         abort(400, "Not a JSON")
 
