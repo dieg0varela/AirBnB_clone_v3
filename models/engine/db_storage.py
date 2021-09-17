@@ -81,9 +81,9 @@ class DBStorage:
         if cls in classes:
              objects = self.all(cls)
              lent = len(cls.__name__) + 1
-             for i in objects:
-             if i[lent:] == id:
-                 ret = objects[i]
+            for i in objects:
+                if i[lent:] == id:
+                    ret = objects[i]
         return (ret)
 
     def count(self, cls=None):
