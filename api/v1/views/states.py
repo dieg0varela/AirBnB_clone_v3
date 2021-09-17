@@ -10,11 +10,14 @@ from models.state import State
 import json
 
 
-@app_views.route("/states", methods=['GET'])
+@app_views.route("/states", methods=['GET'], strict_slashes = False)
 def get_them_all():
     """Method Get PastranaRaymundo"""
     states = storage.all(State)
-    return jsonify(states.to_dict())
+    ret_list = []
+    for obj in states:
+        ret_list.append(obj.to_dict())
+    return jsonify(ret_list)
 
 
 @app_views.route("/states/<state_id>", methods=['GET'])
