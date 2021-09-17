@@ -36,6 +36,7 @@ def delete(state_id):
     del_obj = storage.get(State, state_id)
     if del_obj is not None:
         storage.delete(del_obj)
+        storage.save()
         return jsonify({})
     else:
         abort(404)
