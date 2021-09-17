@@ -44,14 +44,13 @@ def delete(state_id):
 @app_views.route("/states", methods=['POST'], strict_slashes = False)
 def post():
     """Add an instance of a state"""
-    data = request.get_json()
     try:
-        json.loads(data)
+        data = request.get_json()
         print(type(data))
         '''if "name" not in data
             abort(400, "Missing name")'''
     
-    except ValueError as err:
+    except:
         abort(400, "Not a JSON")
 
 @app_views.route("/states/<state_id>", methods=['PUT'])
