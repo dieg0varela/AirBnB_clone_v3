@@ -44,9 +44,10 @@ def post():
     data = request.get_json()
     try:
         json.loads(data)
-        if "name" not in data.keys()
-            abort(400, "Missing name")
-        
+        print(type(data))
+        '''if "name" not in data
+            abort(400, "Missing name")'''
+    
     except ValueError as err:
         abort(400, "Not a JSON")
 
