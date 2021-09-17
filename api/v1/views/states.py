@@ -68,8 +68,8 @@ def put(state_id):
         update = request.get_json()
         for k, v in update.items():
             if "id" not in update or \
-            "created_at" not in update or \
-            "updated_at" not in update:
+                "created_at" not in update or \
+                "updated_at" not in update:
                 setattr(obj, k, v)
                 obj.save()
         return jsonify(obj.to_dict())
