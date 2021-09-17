@@ -41,7 +41,7 @@ def delete(state_id):
         abort(404)
 
 
-@app_views.route("/states", methods=['POST'])
+@app_views.route("/states", methods=['POST'], strict_slashes = False)
 def post():
     """Add an instance of a state"""
     data = request.get_json()
