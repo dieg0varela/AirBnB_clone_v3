@@ -78,7 +78,7 @@ class DBStorage:
     def get(self, cls, id):
         """Return an object with a given class and ID"""
         ret = None
-        if cls in classes:
+        if cls in classes.values():
             objects = self.all(cls)
             lent = len(cls.__name__) + 1
             for i in objects:
