@@ -65,6 +65,7 @@ def put(state_id):
             if "id" not in update or "created_at" not in update or "updated_at" not in update:
                 setattr(obj, k, v)
                 obj.save()
+        return jsonify(obj.to_dict())
 
     except ValueError as err:
         abort(400, "Not a JSON")
