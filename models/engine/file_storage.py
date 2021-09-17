@@ -76,7 +76,7 @@ class FileStorage:
             objects = self.all(cls)
             lent = len(cls.__name__) + 1
             for i in objects:
-               if i[lent:] == id:
+                if i[lent:] == id:
                    ret = objects[i]
         return (ret)
 
