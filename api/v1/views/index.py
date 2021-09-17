@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+initialize the index package
+"""
+
+
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
@@ -15,13 +21,14 @@ def summary():
     d = {"status": "OK"}
     return jsonify(d)
 
+
 @app_views.route('/stats')
 def number_of_obj():
     """Amount of objects of each class"""
-    d = {"amenities" : storage.count(Amenity),
-         "cities" :  storage.count(City),
-         "places" : storage.count(Place),
-         "reviews" : storage.count(Review),
-         "states" : storage.count(State),
-         "users" : storage.count(User)}
+    d = {"amenities": storage.count(Amenity),
+         "cities":  storage.count(City),
+         "places": storage.count(Place),
+         "reviews": storage.count(Review),
+         "states": storage.count(State),
+         "users": storage.count(User)}
     return jsonify(d)
