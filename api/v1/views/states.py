@@ -42,7 +42,7 @@ def delete(state_id):
         abort(404)
 
 
-@app_views.route("/states", methods=['POST'], strict_slashes = False)
+@app_views.route("/states", methods=['POST'], strict_slashes=False)
 def post():
     """Add an instance of a state"""
     try:
@@ -62,13 +62,14 @@ def post():
 def put(state_id):
     """put request"""
     obj = storage.get(State, state_id)
-    if obj is None: abort(404)
+    if obj is None:
+        abort(404)
     try:
         update = request.get_json()
         for k, v in update.items():
             if ("id" not in update or
-                "created_at" not in update or 
-                "updated_at" not in update):
+            "created_at" not in update or
+            "updated_at" not in update):
                 setattr(obj, k, v)
                 obj.save()
         return jsonify(obj.to_dict())
