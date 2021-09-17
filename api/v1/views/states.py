@@ -64,15 +64,12 @@ def put(state_id):
     obj = storage.get(State, state_id)
     if obj is None:
         abort(404)
-    try:
-        update = request.get_json()
+    update = request.get_json()
+    if update is not None:
         for k, v in update.items():
-            if "id" not in update or \
-                "created_at" not in update or \
-                "updated_at" not in update:
-                    setattr(obj, k, v)
-                    obj.save()
+            if k not in ["id", "created_at", "update_at"]:
+                setattr(obj, k, v)
+                obj.save()
         return jsonify(obj.to_dict())
 
-    except:
-        abort(400, "Not a JSON")
+    abort(400, "Not a JSON")
