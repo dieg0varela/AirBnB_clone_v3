@@ -10,7 +10,7 @@ from os import getenv
 
 
 app = Flask(__name__)
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+"""app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True"""
 if getenv('HBNB_API_HOST') is not None:
     HBNB_API_HOST = getenv('HBNB_API_HOST')
 else:
