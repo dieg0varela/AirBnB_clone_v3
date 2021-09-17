@@ -47,7 +47,7 @@ def post():
     """Add an instance of a state"""
     try:
         data = request.get_json()
-        if "name" not in data
+        if "name" not in data:
             abort(400, "Missing name")
         new_state = State()
         for k, v in data.items():
