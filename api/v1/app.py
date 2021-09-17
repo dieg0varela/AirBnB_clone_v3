@@ -3,7 +3,7 @@
 create a variable app, instance of Flask
 """
 
-from flask import Blueprint, render_template, abort, Flask
+from flask import Blueprint, render_template, abort, Flask, jsonify
 from models import storage
 from api.v1.views import app_views
 from os import getenv
@@ -26,6 +26,7 @@ app.register_blueprint(app_views)
 def teardown_db(exception):
     """closes the storage on teardown"""
     storage.close()
+
 @app.errorhandler(404)
 def invalid_route(e):
     """handle 404 error"""
