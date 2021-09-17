@@ -57,13 +57,14 @@ def post():
 @app_views.route("/states/<state_id>", methods=['PUT'])
 def put(state_id):
     """put request"""
-    objects = storage.get(State, state_id)
+    obj = storage.get(State, state_id)
+    if obj is None: abort(404)
     try:
         update = request.get_json()
         for k, v in update.items():
             if "id" not in update or "created_at" not in update or "updated_at" not in update:
-                setattr(objects[k], k, v)
-                objects[k].storage.save()
+                setattr(obj, k, v)
+                obj.storage.save()
 
     except ValueError as err:
         abort(400, "Not a JSON")
