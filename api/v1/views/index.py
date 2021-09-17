@@ -17,7 +17,7 @@ def summary():
 
 @app_views.route('/stats')
 def number_of_obj():
-    """"""
+    """Amount of objects of each class"""
     d = {"amenities" : storage.count(Amenity),
          "cities" :  storage.count(City),
          "places" : storage.count(Place),
