@@ -64,7 +64,7 @@ def put(state_id):
         for k, v in update.items():
             if "id" not in update or "created_at" not in update or "updated_at" not in update:
                 setattr(obj, k, v)
-                obj.storage.save()
+                obj.save()
 
     except ValueError as err:
         abort(400, "Not a JSON")
