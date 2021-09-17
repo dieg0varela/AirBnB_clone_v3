@@ -26,6 +26,11 @@ app.register_blueprint(app_views)
 def teardown_db(exception):
     """closes the storage on teardown"""
     storage.close()
+@app.errorhandler(404)
+def invalid_route(e):
+    """handle 404 error"""
+    return jsonify({'error' : 'Not found'})
+
 
 if __name__ == '__main__':
     app.run(host=HBNB_API_HOST, port=HBNB_API_PORT, threaded=True)
