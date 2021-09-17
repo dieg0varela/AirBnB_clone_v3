@@ -15,8 +15,8 @@ def get_them_all():
     """Method Get PastranaRaymundo"""
     states = storage.all(State)
     ret_list = []
-    for obj in states:
-        ret_list.append(obj.to_dict())
+    for k, v in states.items():
+        ret_list.append(v.to_dict())
     return jsonify(ret_list)
 
 
