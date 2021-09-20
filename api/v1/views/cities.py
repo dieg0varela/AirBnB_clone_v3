@@ -48,9 +48,9 @@ def delete_city(city_id):
 @app_views.route("/states/<state_id>/cities", methods=['POST'])
 def post_city(state_id):
     """Add an instance of a city"""
+    if storage.get(State, state_id) is None:
+        abort(404)
     try:
-        if storage.get(State, state_id) is None:
-            abort(404)
         data = request.get_json()
         if "name" not in data:
             abort(400, "Missing name")
