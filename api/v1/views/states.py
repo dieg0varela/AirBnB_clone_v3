@@ -43,7 +43,7 @@ def delete_state(state_id):
 
 
 @app_views.route("/states", methods=['POST'], strict_slashes=False)
-def post_state():
+def post_stat():
     """Add an instance of a state"""
     try:
         data = request.get_json()
