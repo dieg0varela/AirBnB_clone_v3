@@ -13,7 +13,7 @@ from models.user import User
                  strict_slashes=False)
 def get_them_all_user():
     """Retrive all Users"""
-    users = storage.get(User)
+    users = storage.all(User)
     ret_list = []
     for user_obj in users:
         ret_list.append(user_obj.to_dict())
@@ -32,7 +32,7 @@ def get_user(user_id):
 
 @app_views.route("/users/<user_id>", methods=['DELETE'],
                  strict_slashes=False)
-def delete_user(city_id):
+def delete_user(user_id):
     """Delete an instance of a User"""
     del_obj = storage.get(User, user_id)
     if del_obj is not None:
