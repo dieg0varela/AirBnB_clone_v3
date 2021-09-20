@@ -31,7 +31,7 @@ def get_Amenity(amenity_id):
         abort(404)
 
 
-@app_views.route("/amenities/<amenity_id>", methods=['DELETE'], 
+@app_views.route("/amenities/<amenity_id>", methods=['DELETE'],
                  strict_slashes=False)
 def delete_Amenity(amenity_id):
     """Delete an instance of a Amenity"""
