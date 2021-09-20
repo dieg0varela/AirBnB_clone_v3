@@ -62,6 +62,7 @@ def post_place(city_id):
         if storage.get(User, data['user_id']) is None:
             abort(404)
         new_place = Place()
+        setattr(new_place, "city_id", city_id)
         for k, v in data.items():
             setattr(new_place, k, v)
         new_place.save()
@@ -80,7 +81,8 @@ def put_place(place_id):
     update = request.get_json()
     if update is not None:
         for k, v in update.items():
-            if k not in ["id", "user_id", "city_id", "created_at", "updated_at"]:
+            if k not in ["id", "user_id", "city_id", 
+                         "created_at", "updated_at"]:
                 setattr(obj, k, v)
         storage.save()
         return jsonify(obj.to_dict())
