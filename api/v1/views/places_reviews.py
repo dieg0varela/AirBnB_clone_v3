@@ -6,8 +6,8 @@ Module related with City class
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
+from models.review import Review
 from models.place import Place
-from models.city import City
 from models.user import User
 
 
@@ -15,11 +15,11 @@ from models.user import User
                  strict_slashes=False)
 def get_them_all_review(place_id):
     """Retrive all cities from a given state"""
-    place_city = storage.get(City, place_id)
-    if place_city is None:
+    place_review = storage.get(Place, place_id)
+    if place_review is None:
         abort(404)
     ret_list = []
-    for place in place_city.places:
+    for place in place_review.reviews:
         ret_list.append(place.to_dict())
     return jsonify(ret_list)
 
@@ -28,17 +28,17 @@ def get_them_all_review(place_id):
                  strict_slashes=False)
 def get_review(review_id):
     """Retrive object city from their id"""
-    obj_place = storage.get(Place, place_id)
-    if obj_place is None:
+    obj_review = storage.get(Review, review_id)
+    if obj_review is None:
         abort(404)
-    return (jsonify(obj_place.to_dict()))
+    return (jsonify(obj_review.to_dict()))
 
 
 @app_views.route("/reviews/<review_id>>", methods=['DELETE'],
                  strict_slashes=False)
 def delete_review(review_id):
     """Delete an instance of a city"""
-    del_obj = storage.get(Place, place_id)
+    del_obj = storage.get(Review, review_id)
     if del_obj is not None:
         storage.delete(del_obj)
         storage.save()
@@ -51,23 +51,22 @@ def delete_review(review_id):
                  strict_slashes=False)
 def post_review(place_id):
     """Add an instance of a place"""
-    if storage.get(City, place_id
-) is None:
+    if storage.get(Place, place_id) is None:
         abort(404)
     if request.is_json:
         data = request.get_json()
-        if "name" not in data:
-            abort(400, "Missing name")
+        if "text" not in data:
+            abort(400, "Missing text")
         if "user_id" not in data:
             abort(400, "Missing user_id")
         if storage.get(User, data['user_id']) is None:
             abort(404)
-        new_place = Place()
-        setattr(new_place, "place_id", place_id)
+        new_review = Review()
+        setattr(new_review, "place_id", place_id)
         for k, v in data.items():
-            setattr(new_place, k, v)
-        new_place.save()
-        return jsonify(new_place.to_dict()), 201
+            setattr(new_review, k, v)
+        new_review.save()
+        return jsonify(new_review.to_dict()), 201
     else:
         abort(400, "Not a JSON")
 
@@ -76,7 +75,7 @@ def post_review(place_id):
                  strict_slashes=False)
 def put_review(review_id):
     """Update an instance of a city"""
-    obj = storage.get(Place, place_id)
+    obj = storage.get(Review, review_id)
     if obj is None:
         abort(404)
     update = request.get_json()
