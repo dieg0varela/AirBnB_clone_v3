@@ -81,7 +81,7 @@ def put_place(place_id):
     update = request.get_json()
     if update is not None:
         for k, v in update.items():
-            if k not in ["id", "user_id", "city_id", 
+            if k not in ["id", "user_id", "city_id",
                          "created_at", "updated_at"]:
                 setattr(obj, k, v)
         storage.save()
