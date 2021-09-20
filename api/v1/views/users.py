@@ -15,8 +15,8 @@ def get_them_all_user():
     """Retrive all Users"""
     users = storage.all(User)
     ret_list = []
-    for user_obj in users:
-        ret_list.append(user_obj.to_dict())
+    for k, v in users.items():
+        ret_list.append(v.to_dict())
     return jsonify(ret_list)
 
 
