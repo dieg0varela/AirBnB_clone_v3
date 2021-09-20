@@ -58,7 +58,7 @@ def post_city(state_id):
         setattr(new_city, "state_id", state_id)
         for k, v in data.items():
             setattr(new_city, k, v)
-            new_city.save()
+        new_city.save()
         return jsonify(new_city.to_dict()), 201
     else:
         abort(400, "Not a JSON")
@@ -70,12 +70,12 @@ def put_city(city_id):
     obj = storage.get(City, city_id)
     if obj is None:
         abort(404)
-    if request.is_json:
         update = request.get_json()
+    if update is not None:
         for k, v in update.items():
             if k not in ["id", "state_id", "created_at", "updated_at"]:
                 setattr(obj, k, v)
-                obj.save()
+        storage.save()
         return jsonify(obj.to_dict())
     else:
         abort(400, "Not a JSON")
