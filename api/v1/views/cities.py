@@ -49,11 +49,11 @@ def delete_city(city_id):
 def post_city(state_id):
     """Add an instance of a city"""
     try:
+        if storage.get(State, state_id) is None:
+            abort(404)
         data = request.get_json()
         if "name" not in data:
             abort(400, "Missing name")
-        if storage.get(State, state_id) is None:
-            abort(404)
         new_city = City()
         setattr(new_city, "state_id", state_id)
         for k, v in data.items():
