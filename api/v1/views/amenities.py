@@ -44,7 +44,7 @@ def delete_Amenity(amenity_id):
 
 
 @app_views.route("/amenities", methods=['POST'], strict_slashes=False)
-def post_stat():
+def post_amenity():
     """Add an instance of a Amenity"""
     try:
         data = request.get_json()
