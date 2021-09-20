@@ -26,11 +26,11 @@ def get_them_all_city(state_id):
 @app_views.route("/cities/<city_id>", methods=['GET'])
 def get_city(city_id):
     """Retrive object city from their id"""
-    try:
-        obj_city = storage.get(City, city_id)
-        return (jsonify(obj_city.to_dict()))
-    except:
+    obj_city = storage.get(City, city_id)
+    if obj_city is None:
         abort(404)
+    return (jsonify(obj_city.to_dict()))
+
 
 
 @app_views.route("/cities/<city_id>", methods=['DELETE'])
@@ -70,12 +70,13 @@ def put_city(city_id):
     obj = storage.get(City, city_id)
     if obj is None:
         abort(404)
-    update = request.get_json()
-    if update is not None:
-        for k, v in update.items():
-            if k not in ["id", "state_id", "created_at", "update_at"]:
-                setattr(obj, k, v)
-                obj.save()
-        return jsonify(obj.to_dict())
-
-    abort(400, "Not a JSON")
+    if request.is_json:
+        update = request.get_json()
+        if update is not None:
+            for k, v in update.items():
+                if k not in ["id", "state_id", "created_at", "update_at"]:
+                    setattr(obj, k, v)
+                    obj.save()
+            return jsonify(obj.to_dict())
+    else:
+        abort(400, "Not a JSON")
