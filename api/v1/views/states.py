@@ -11,7 +11,7 @@ import json
 
 
 @app_views.route("/states", methods=['GET'], strict_slashes=False)
-def get_them_all():
+def get_them_all_state():
     """Retrive all object state"""
     states = storage.all(State)
     ret_list = []
@@ -21,7 +21,7 @@ def get_them_all():
 
 
 @app_views.route("/states/<state_id>", methods=['GET'])
-def get(state_id):
+def get_state(state_id):
     """Retrive object state from their id"""
     try:
         states = storage.get(State, state_id)
@@ -31,7 +31,7 @@ def get(state_id):
 
 
 @app_views.route("/states/<state_id>", methods=['DELETE'])
-def delete(state_id):
+def delete_state(state_id):
     """Delete an instance of a state"""
     del_obj = storage.get(State, state_id)
     if del_obj is not None:
@@ -43,7 +43,7 @@ def delete(state_id):
 
 
 @app_views.route("/states", methods=['POST'], strict_slashes=False)
-def post():
+def post_state():
     """Add an instance of a state"""
     try:
         data = request.get_json()
@@ -59,7 +59,7 @@ def post():
 
 
 @app_views.route("/states/<state_id>", methods=['PUT'])
-def put(state_id):
+def put_state(state_id):
     """put request"""
     obj = storage.get(State, state_id)
     if obj is None:

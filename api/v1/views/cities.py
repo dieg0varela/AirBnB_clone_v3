@@ -12,7 +12,7 @@ import json
 
 
 @app_views.route("states/<state_id>/cities", methods=['GET'], strict_slashes=False)
-def get_them_all(state_id):
+def get_them_all_city(state_id):
     """Retrive all cities from a given state"""
     city_state = storage.get(State, state_id)
     if city_state is None:
@@ -24,7 +24,7 @@ def get_them_all(state_id):
 
 
 @app_views.route("/cities/<city_id>", methods=['GET'])
-def get(city_id):
+def get_city(city_id):
     """Retrive object city from their id"""
     try:
         obj_city = storage.get(City, city_id)
@@ -34,7 +34,7 @@ def get(city_id):
 
 
 @app_views.route("/cities/<city_id>", methods=['DELETE'])
-def delete(city_id):
+def delete_city(city_id):
     """Delete an instance of a city"""
     del_obj = storage.get(City, city_id)
     if del_obj is not None:
@@ -46,7 +46,7 @@ def delete(city_id):
 
 
 @app_views.route("/states/<state_id>/cities", methods=['POST'])
-def post(state_id):
+def post_city(state_id):
     """Add an instance of a city"""
     try:
         data = request.get_json()
@@ -63,7 +63,7 @@ def post(state_id):
 
 
 @app_views.route("/cities/<city_id>", methods=['PUT'])
-def put(city_id):
+def put_city(city_id):
     """Update an instance of a city"""
     obj = storage.get(City, city_id)
     if obj is None:
