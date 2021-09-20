@@ -70,12 +70,12 @@ def put_city(city_id):
     obj = storage.get(City, city_id)
     if obj is None:
         abort(404)
-        update = request.get_json()
-        if update is not None:
-            for k, v in update.items():
-                if k not in ["id", "state_id", "created_at", "updated_at"]:
-                    setattr(obj, k, v)
-            storage.save()
+    update = request.get_json()
+    if update is not None:
+        for k, v in update.items():
+            if k not in ["id", "state_id", "created_at", "updated_at"]:
+                setattr(obj, k, v)
+        storage.save()
         return jsonify(obj.to_dict())
     else:
         abort(400, "Not a JSON")
