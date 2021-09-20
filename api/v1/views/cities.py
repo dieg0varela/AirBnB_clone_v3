@@ -11,7 +11,7 @@ from models.city import City
 import json
 
 
-@app_views.route("states/<state_id>/cities", methods=['GET'], strict_slashes=False)
+@app_views.route("states/<state_id>/cities", methods=['GET'])
 def get_them_all_city(state_id):
     """Retrive all cities from a given state"""
     city_state = storage.get(State, state_id)
@@ -50,7 +50,7 @@ def post_city(state_id):
     """Add an instance of a city"""
     if storage.get(State, state_id) is None:
         abort(404)
-    try:
+    if request.is_json:
         data = request.get_json()
         if "name" not in data:
             abort(400, "Missing name")
@@ -60,7 +60,7 @@ def post_city(state_id):
             setattr(new_city, k, v)
             new_city.save()
         return jsonify(new_city.to_dict()), 201
-    except:
+    else:
         abort(400, "Not a JSON")
 
 
