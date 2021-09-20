@@ -61,7 +61,7 @@ def post_place(city_id):
             abort(400, "Missing user_id")
         if storage.get(User, data['user_id']) is None:
             abort(404)
-        new_place = Plcae()
+        new_place = Place()
         for k, v in data.items():
             setattr(new_place, k, v)
         new_place.save()
