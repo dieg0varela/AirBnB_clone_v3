@@ -90,7 +90,7 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing file storage")
     def test_get(self):
         """Test get method creating classes and calling the object
-        to compare the original one with the retrived one""""
+        to compare the original one with the retrived one"""
         storage = DBStorage()
         for k, cls in classes.items():
             obj = cls()
